@@ -1,0 +1,2 @@
+- [ ] Speed up loading screens
+- [ ] Remove "Easy Save" lag when `F5` is used
