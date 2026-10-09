@@ -1,2 +1,6 @@
 - [ ] Speed up loading screens
 - [ ] Remove "Easy Save" lag when `F5` is used
+- [ ] Fix performance issues
+- [ ] Fix lag spikes when setting stuff in fire, can lag even without setting anything on fire, it lags by just throwing gasoline on the floor and lightning it up
+- [ ] Built-in engine/game debug info
+- - [ ] Built-in wireframe view mode
