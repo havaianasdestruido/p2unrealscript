@@ -5,7 +5,7 @@
 - [ ] Built-in engine/game debug info
 - - [ ] Built-in wireframe view mode
 - [ ] New cheats
-- - [ ] Higher speed
+- - [x] Higher speed
 - - [ ] In-game HEX editor
 - - [ ] GMOD-like entuty spawner
 - - [ ] Spectator mode (invisible mode where you can do everything but no one can "see" you)

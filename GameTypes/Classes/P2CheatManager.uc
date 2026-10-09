@@ -410,6 +410,18 @@ exec function SetGravity( float F )
 }
 exec function SetSpeed( float F )
 {
+	if (!RecordCheater("SetSpeed"@F,true))
+		return;
+
+	if (F <= 0)
+		F = 1.0;
+
+	P2Player(Outer).MyPawn.GroundSpeedMult = F;
+	P2Player(Outer).MyPawn.AccelRate = P2Player(Outer).MyPawn.Default.AccelRate * F;
+	P2Player(Outer).MyPawn.LadderSpeed = P2Player(Outer).MyPawn.Default.LadderSpeed * F;
+	P2Player(Outer).MyPawn.AirSpeed = P2Player(Outer).MyPawn.Default.AirSpeed * F;
+
+	ClientMessage("Player speed multiplier set to "$F);
 }
 exec function KillAll(class<actor> aClass)
 {
