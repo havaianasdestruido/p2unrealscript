@@ -116,25 +116,12 @@ simulated function SetupLifetime(float uselife)
 ///////////////////////////////////////////////////////////////////////////////
 function DoSoundAndLight()
 {
-	local FireEmitter fe;
-	local float dist;
 	local int lightcount, soundcount;
-	
+
 	// Do a search around you for other fire, if there is some, decide
 	// whether or not to make sound
-	ForEach CollidingActors(class'FireEmitter', fe, OTHER_FIRE_SEARCH_RADIUS, Location)
-	{
-		if(!fe.bDynamicLight)
-			lightcount++;
+	CountNearbyFire(soundcount, lightcount);
 
-		if(fe.AmbientSound != None)
-			soundcount++;
-
-		dist = VSize(fe.Location-Location);
-//		log(self$" other fire I hit "$fe$" dist "$dist);
-	}
-
-//	log(self$" total count making sound "$soundcount$" lightcount "$lightcount);
 	if(soundcount == 0)
 	{
 		AmbientSound=BurningSound;
@@ -145,6 +132,36 @@ function DoSoundAndLight()
 		&& bAllowDynamicLight)
 	{
 		SetupAsLight(LIGHT_RAD);
+	}
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Count the other fires around us that are already making sound / light.
+// This runs every time a fire starts (every streak, every puddle), so it must
+// not walk the whole radius once the answer is already known. The moment we
+// have a neighbour making sound and either don't care about lights or already
+// have a neighbour with a light, the caller's decision can't change, so stop.
+// Lighting a long gas trail spawns a lot of fire in a short time, and the old
+// full scan made each of those spawns cost a search of every fire in range.
+///////////////////////////////////////////////////////////////////////////////
+function CountNearbyFire(out int soundcount, out int lightcount)
+{
+	local FireEmitter fe;
+
+	soundcount = 0;
+	lightcount = 0;
+
+	ForEach CollidingActors(class'FireEmitter', fe, OTHER_FIRE_SEARCH_RADIUS, Location)
+	{
+		if(!fe.bDynamicLight)
+			lightcount++;
+
+		if(fe.AmbientSound != None)
+			soundcount++;
+
+		if(soundcount > 0
+			&& (lightcount > 0 || !bAllowDynamicLight))
+			return;
 	}
 }
 

@@ -304,7 +304,8 @@ function MarkBeingLit()
 function SetAblaze(vector StartPos, bool NewStart)
 {
 	// STUB for child actor
-	log("i got called.. gasoline setablaze: myself :"$self);
+	// (no log here: this is hit every time a fire reaches a fluid type that
+	// doesn't override it, and logging every ignition adds to the lag spikes)
 	bOnFire=true;
 }
 
