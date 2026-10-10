@@ -4,8 +4,9 @@
 - [ ] Fix lag spikes when setting stuff in fire, can lag even without setting anything on fire, it lags by just throwing gasoline on the floor and lightning it up
 - [ ] Built-in engine/game debug info
 - - [ ] Built-in wireframe view mode
+- - [ ] Debug info overlay
 - [ ] New cheats
 - - [x] Higher speed
 - - [ ] In-game HEX editor
-- - [ ] GMOD-like entuty spawner
+- - [ ] GMOD-like entity spawner
 - - [ ] Spectator mode (invisible mode where you can do everything but no one can "see" you)
