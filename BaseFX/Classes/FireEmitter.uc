@@ -117,7 +117,6 @@ simulated function SetupLifetime(float uselife)
 function DoSoundAndLight()
 {
 	local FireEmitter fe;
-	local float dist;
 	local int lightcount, soundcount;
 	
 	// Do a search around you for other fire, if there is some, decide
@@ -130,8 +129,10 @@ function DoSoundAndLight()
 		if(fe.AmbientSound != None)
 			soundcount++;
 
-		dist = VSize(fe.Location-Location);
-//		log(self$" other fire I hit "$fe$" dist "$dist);
+		// Only zero/nonzero matters below; stop this hot scan once both
+		// decisions are fixed. The old distance calculation was unused.
+		if(lightcount > 0 && soundcount > 0)
+			break;
 	}
 
 //	log(self$" total count making sound "$soundcount$" lightcount "$lightcount);
